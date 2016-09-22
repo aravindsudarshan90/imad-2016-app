@@ -1,7 +1,8 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
-var articleone={
+var articles = {
+     'articleone':{
     title:'Article one by me',
     heading:'article-1',
     date :'Sept 5',
@@ -10,14 +11,29 @@ var articleone={
              </p>`
     
     
+},
+     'articletwo':{ title:'Article two by me',
+    heading:'article-2',
+    date :'Sept 10',
+    content:`<p>
+                 this is content fr second article.this is content fr first article.this is content fr first article.this is content fr first article.this is content fr first article.
+             </p>`
+    },
+     'articlethree': { title:'Article three by me',
+    heading:'article-3',
+    date :'Sept 15',
+    content:`<p>
+                 this is content fr third article.this is content fr first article.this is content fr first article.this is content fr first article.this is content fr first article.
+             </p>`
+    
 }
+};
 functiontemplate(data)
 {
     var title=data.title;
 var date=data.date;
 var content=data.content;
-var htmltemplate =
-`
+var htmltemplate =`
 <html>
      <head>
          <title>
@@ -54,8 +70,9 @@ app.use(morgan('combined'));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
-app.get('/article-one',function(req,res){
-    res.send(functiontemplate(articleone))
+app.get('/:articlename',function(req,res){
+    articlename=req.params.articlename;
+    res.send(functiontemplate(articlename))
 });
 app.get('/article-two',function(req,res){
      res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
